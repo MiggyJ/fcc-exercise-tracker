@@ -144,7 +144,7 @@ app.post('/api/users/:_id/exercises', async (req, res) => {
         _id: user._id,
         username: user.username,
         description: data.description,
-        duration: data.duration,
+        duration: parseInt(data.duration),
         date: data.date
       })
     }
