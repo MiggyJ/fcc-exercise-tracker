@@ -55,7 +55,7 @@ app.get('/api/users/:_id/logs', async (req, res) => {
       include: {
         model: Exercise,
         as: 'details',
-        order:[
+        order: [
           ['timestamp', 'asc']
         ],
         attributes: [
@@ -74,7 +74,7 @@ app.get('/api/users/:_id/logs', async (req, res) => {
     if (limit)
       options.include.limit = limit
 
-    let condition = { }
+    let condition = {}
     if (from)
       condition.date = { [Op.gte]: new Date(from) }
     if (to)
@@ -83,7 +83,7 @@ app.get('/api/users/:_id/logs', async (req, res) => {
     options.include.where = condition
 
     let log = await Log.findOne({
-      where: {username: user.username},
+      where: { username: user.username },
       ...options
     })
 
@@ -140,7 +140,13 @@ app.post('/api/users/:_id/exercises', async (req, res) => {
         timestamp: new Date(date).getTime()
       })
 
-      res.send(data)
+      res.send({
+        _id: user._id,
+        username: user.username,
+        description: data.description,
+        duration: data.duration,
+        date: data.date
+      })
     }
   } catch (err) {
     res.send({
