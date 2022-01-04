@@ -34,7 +34,7 @@ app.get('/api/users/:_id/exercises', async (req, res) => {
     where: {
       _id: req.params._id
     },
-    include: ['exercises']
+    include: ['exercise']
   })
 
   if (data)
